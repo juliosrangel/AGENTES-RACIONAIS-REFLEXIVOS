@@ -23,8 +23,6 @@ try:
         host="127.0.0.1",
         port=3307,
         database="testejulio"
-        
-
     )
 except mariadb.Error as e:
     print(f"Error connecting to MariaDB Platform: {e}")
@@ -32,55 +30,22 @@ except mariadb.Error as e:
 
 # Get Cursor
 cur = conn.cursor()
-cursor = conn.cursor()
 
-cursor.execute(
-    "INSERT INTO rule (percept,relation,action) VALUES ('1', '==', '2')",
-    ('2','==','4'))
-cur.execute(
-    "SELECT * FROM rule")
-
-
-for (percept, relation, action) in cur:
-    print(f"Percepti: {percept}, relation: {relation}, action: {action}")
-
-def eval_rule(rule, percept):
-    if eval(percept + rule['relation'] \
-            + rule['percept']):
-        return rule['action']
+def eval_rule1(percept, relation, action, entrada):
+    if eval(entrada + relation \
+            + percept):
+        return action
     else:
         return None
-
-def rule_engine(rule_db, percept):
-    actions = []
-    for rule in rule_db:
-        actions.append(eval_rule(rule, percept))
-    return actions
-
-def eval_rule1(rule, percept, relation, action):
-    if eval(percept + rule['relation'] \
-            + rule['percept']):
-        return rule['action']
-    else:
-        return None
+    
 def rule_engine1(cur, entrada):
     actions = []
-    rule_dba = []
-    cur.execute("SELECT * FROM rule where percept =?",(some_name,))
+    cur.execute("SELECT * FROM rule where percept =?",(entrada,))
     for (percept, relation, action) in cur:
-        
-        actions.append(eval_rule(rule, percept, relation, entrada))
+        actions.append(eval_rule1(percept, relation, action, entrada))
     return actions
-cur.execute(
-    "SELECT first_name,last_name FROM employees WHERE first_name=?",(some_name,))
-
 rule  = {'percept':'1',
          'relation':'==',
          'action': 1}
 
-percept = '2'
-codigo = input("Digite a opção selecionada")
-if(codigo==2):
-    entrada = input("Digite a sua compra")
-print(rule_engine(rule_db, percept))
-
+print(rule_engine1(cur, entrada))
