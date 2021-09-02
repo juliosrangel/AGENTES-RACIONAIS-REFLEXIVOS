@@ -3,6 +3,7 @@
 Julio Rangel
 
 Modelo de banco:
+
 CREATE DATABASE testejulio;
 
 create table rule(
