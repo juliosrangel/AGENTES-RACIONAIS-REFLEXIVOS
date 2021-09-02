@@ -4,7 +4,7 @@ Julio Rangel
 
 Modelo de banco:
 
-CREATE DATABASE julio;
+CREATE DATABASE testejulio;
 
 create table rule(
     percept varchar(255) not null,
