@@ -46,10 +46,25 @@ def rule_engine1(cur, entrada):
     for (percept, relation, action) in cur:
         actions.append(eval_rule1(percept, relation, action, entrada))
     return actions
-
-
-print('a compra desejada deve ser colocada em parenteses, ex: "meia"')
-entrada = str(input("Digite a opção selecionada:\n"))
-entrada = str(entrada)
+escolha = 6
+while escolha !=5:
+    print('''
+Escolha uma opçao:
+    1 - comprar
+    2 - adiocionar
+    3 - pesquisar
+    4 - excluir
+    5 - sair''')
+    escolha = int(input('DIgite a escolha selecionada: '))
+    if(escolha==1):
+        entrada = input("Digite a sua compra: ")
+        print(rule_engine1(cur, entrada))
+    if(escolha==2):
+        adicionar = input("Digite a sua adiçao: ")
+    if(escolha==3):
+        buscar = input("Digite a sua busca: ")
+    if(escolha==4):
+        buscar = input("Digite o que deseja excluir: ")
+    if(escolha==5):
+        break       
     
-print(rule_engine1(cur, entrada))
