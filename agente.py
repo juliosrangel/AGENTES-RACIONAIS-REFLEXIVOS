@@ -58,24 +58,29 @@ def rule_engine(rule_db, percept):
     return actions
 
 def eval_rule1(rule, percept, relation, action):
-    if eval(percept + relation \
-            +def eval_rule(rule, percept):
     if eval(percept + rule['relation'] \
             + rule['percept']):
         return rule['action']
     else:
-        return None rule['percept']):
-        return action
-    else:
         return None
-def rule_engine1(cur, percept):
+def rule_engine1(cur, entrada):
     actions = []
-    cur.execute("SELECT * FROM rule")
+    rule_dba = []
+    cur.execute("SELECT * FROM rule where percept =?",(some_name,))
     for (percept, relation, action) in cur:
-        actions.append(eval_rule(rule, percept, relation))
+        
+        actions.append(eval_rule(rule, percept, relation, entrada))
     return actions
+cur.execute(
+    "SELECT first_name,last_name FROM employees WHERE first_name=?",(some_name,))
+
+rule  = {'percept':'1',
+         'relation':'==',
+         'action': 1}
 
 percept = '2'
 codigo = input("Digite a opção selecionada")
+if(codigo==2):
+    entrada = input("Digite a sua compra")
 print(rule_engine(rule_db, percept))
 
