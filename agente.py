@@ -42,25 +42,32 @@ def eval_rule1(percept, relation, action, entrada):
     
 def rule_engine1(cur, entrada):
     actions = []
-    cur.execute("SELECT * FROM rule where percept =?",(entrada,))
+    cur.execute("SELECT * FROM rule where percept ='?'",(entrada,))
     for (percept, relation, action) in cur:
         actions.append(eval_rule1(percept, relation, action, entrada))
     return actions
-def busca(cur):
+
+def busca(cur, buscar):
     cur.execute("SELECT * FROM rule")
     for (percept, relation, action) in cur:
         print(f"Compra: {percept}, relação: {relation}, sugestão: {action}")
+        
 def insert(cur, compra, relacao, acao):
     cur.execute(
     "INSERT INTO rule (percept,relation,action) VALUES (?, ?, ?)", 
     (compra, relacao, acao))
+    
+def excluir(cur, exclusao):
+    cur.execute(
+    "DELETE FROM rule WHERE percept ='?'", (exclusao))
+    return 'registro deletado'
     
 escolha = 6
 while escolha !=5:
     print('''
 Escolha uma opçao:
     1 - comprar
-    2 - adiocionar
+    2 - adicionar
     3 - pesquisar
     4 - excluir
     5 - sair''')
@@ -76,9 +83,15 @@ Escolha uma opçao:
         acao = input("Digite a sua acao: ")
         print(insert(cur, compra, relacao, acao))
     if(escolha==3):
-        print(busca(cur))
+        print('a entrada desejada deve ser colocada em parenteses, ex: "meia"\n')
+        buscar = input("Digite o que deseja pesquisar: ")
+        print(busca(cur, buscar))
     if(escolha==4):
-        buscar = input("Digite o que deseja excluir: ")
+        print('a entrada desejada deve ser colocada em parenteses, ex: "meia"\n')
+        exclusao = input("Digite o que deseja excluir: ")
+        print(excluir(cur, exclusao))
+        
+        
     if(escolha==5):
         break       
     
