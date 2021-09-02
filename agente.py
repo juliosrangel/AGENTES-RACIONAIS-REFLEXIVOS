@@ -42,15 +42,18 @@ def eval_rule1(percept, relation, action, entrada):
     
 def rule_engine1(cur, entrada):
     actions = []
-    cur.execute("SELECT * FROM rule where percept ='?'",(entrada,))
+    cur.execute("SELECT * FROM rule where percept =?",(entrada,))
     for (percept, relation, action) in cur:
         actions.append(eval_rule1(percept, relation, action, entrada))
     return actions
 
-def busca(cur, buscar):
-    cur.execute("SELECT * FROM rule")
+def busca(cur, entrada):
+    inserts = []
+    cur.execute("SELECT * FROM rule where percept =?",(entrada,))
     for (percept, relation, action) in cur:
-        print(f"Compra: {percept}, relação: {relation}, sugestão: {action}")
+        insert='Percept: '+percept+' Relacao: '+ relation+' Acao: ' +action+' || '
+        inserts.append(insert)
+    return inserts
         
 def insert(cur, compra, relacao, acao):
     cur.execute(
