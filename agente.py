@@ -32,7 +32,9 @@ except mariadb.Error as e:
 cur = conn.cursor()
 
 def eval_rule1(percept, relation, action, entrada):
-    if eval(entrada + relation \
+    print(entrada)
+    teste = str(entrada)
+    if eval(teste + relation \
             + percept):
         return action
     else:
@@ -44,8 +46,10 @@ def rule_engine1(cur, entrada):
     for (percept, relation, action) in cur:
         actions.append(eval_rule1(percept, relation, action, entrada))
     return actions
-rule  = {'percept':'1',
-         'relation':'==',
-         'action': 1}
 
+
+print('a compra desejada deve ser colocada em parenteses, ex: "meia"')
+entrada = str(input("Digite a opção selecionada:\n"))
+entrada = str(entrada)
+    
 print(rule_engine1(cur, entrada))
